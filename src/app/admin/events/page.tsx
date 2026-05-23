@@ -67,8 +67,8 @@ export default function EventsPage() {
   }
 
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-4 md:p-6">
+      <div className="flex items-center justify-between mb-4 md:mb-6">
         <h1 className="text-2xl font-bold text-gray-900">이벤트 / 할인 관리</h1>
         <button
           onClick={() => setShowForm(!showForm)}
@@ -82,7 +82,7 @@ export default function EventsPage() {
       {showForm && (
         <form onSubmit={handleCreate} className="bg-white rounded-xl p-5 shadow-sm border mb-6">
           <h2 className="font-semibold text-gray-800 mb-4">새 이벤트 설정</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
             <div className="col-span-2">
               <label className="block text-xs text-gray-500 mb-1">이벤트 이름 *</label>
               <input
@@ -190,26 +190,27 @@ export default function EventsPage() {
         ) : (
           <div className="divide-y">
             {events.map(ev => (
-              <div key={ev.id} className="px-5 py-4 flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-gray-900">{ev.name}</span>
-                    <Badge variant={ev.is_active ? 'green' : 'gray'}>
-                      {ev.is_active ? '활성' : '비활성'}
-                    </Badge>
-                    <Badge variant="gray">
-                      {ev.applies_to === 'all' ? '전체' : ev.applies_to === 'single' ? '단독만' : '두가족만'}
-                    </Badge>
+              <div key={ev.id} className="px-4 py-4 md:px-5">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className="font-semibold text-gray-900">{ev.name}</span>
+                      <Badge variant={ev.is_active ? 'green' : 'gray'}>
+                        {ev.is_active ? '활성' : '비활성'}
+                      </Badge>
+                      <Badge variant="gray">
+                        {ev.applies_to === 'all' ? '전체' : ev.applies_to === 'single' ? '단독만' : '두가족만'}
+                      </Badge>
+                    </div>
+                    {ev.description && <p className="text-sm text-gray-500 mb-1">{ev.description}</p>}
+                    <div className="text-xs text-gray-400">
+                      {formatDateShort(ev.start_date)} ~ {formatDateShort(ev.end_date)} ·{' '}
+                      {ev.discount_type === 'percent'
+                        ? `${ev.discount_value}% 할인`
+                        : `${formatPrice(ev.discount_value)} 할인`}
+                    </div>
                   </div>
-                  {ev.description && <p className="text-sm text-gray-500 mb-1">{ev.description}</p>}
-                  <div className="text-xs text-gray-400">
-                    {formatDateShort(ev.start_date)} ~ {formatDateShort(ev.end_date)} ·{' '}
-                    {ev.discount_type === 'percent'
-                      ? `${ev.discount_value}% 할인`
-                      : `${formatPrice(ev.discount_value)} 할인`}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 ml-4">
+                  <div className="flex items-center gap-2 flex-shrink-0">
                   <button
                     onClick={() => handleToggle(ev)}
                     className={`flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg transition-colors ${
@@ -227,6 +228,7 @@ export default function EventsPage() {
                   >
                     <Trash2 size={15} />
                   </button>
+                </div>
                 </div>
               </div>
             ))}
