@@ -1,65 +1,143 @@
-import Image from "next/image";
+import Link from 'next/link'
+import Header from '@/components/customer/Header'
+import { CAMPING_INFO, CAMPING_SITES } from '@/lib/constants'
+import { MapPin, Clock, Phone, Trees, Waves, Star } from 'lucide-react'
 
-export default function Home() {
+export default function HomePage() {
+  const singleSites = CAMPING_SITES.filter(s => s.type === 'single')
+  const familySites = CAMPING_SITES.filter(s => s.type === 'family')
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen">
+      <Header />
+
+      {/* 히어로 */}
+      <section className="bg-gradient-to-br from-green-800 via-green-700 to-emerald-600 text-white py-20 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-1.5 rounded-full text-sm mb-6">
+            <MapPin size={14} />
+            강원 영월 법흥계곡
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            법흥계곡캠핑오늘
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-green-100 text-lg mb-8 leading-relaxed">
+            맑은 계곡물 소리와 울창한 숲이 어우러진<br />
+            영월 최고의 자연 캠핑장에서 특별한 하룻밤을
           </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/reservation"
+              className="bg-white text-green-700 px-8 py-3.5 rounded-2xl font-bold text-lg hover:bg-green-50 transition-colors shadow-lg"
+            >
+              지금 예약하기
+            </Link>
+            <Link
+              href="/sites"
+              className="border-2 border-white text-white px-8 py-3.5 rounded-2xl font-bold text-lg hover:bg-white/10 transition-colors"
+            >
+              사이트 둘러보기
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* 특징 카드 */}
+      <section className="max-w-5xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border text-center">
+            <Waves className="w-8 h-8 text-blue-500 mx-auto mb-3" />
+            <h3 className="font-bold text-gray-900 mb-1">법흥계곡 인접</h3>
+            <p className="text-gray-500 text-sm">맑고 시원한 계곡에서 물놀이와 트레킹을 즐기세요</p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border text-center">
+            <Trees className="w-8 h-8 text-green-500 mx-auto mb-3" />
+            <h3 className="font-bold text-gray-900 mb-1">울창한 자연 속</h3>
+            <p className="text-gray-500 text-sm">깊은 숲 속에서 도시의 소음을 잊고 자연을 만끽하세요</p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border text-center">
+            <Star className="w-8 h-8 text-amber-500 mx-auto mb-3" />
+            <h3 className="font-bold text-gray-900 mb-1">별 관측 명소</h3>
+            <p className="text-gray-500 text-sm">빛 공해 없는 맑은 하늘에서 은하수를 감상하세요</p>
+          </div>
         </div>
-      </main>
+
+        {/* 사이트 타입 */}
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">캠핑 사이트 안내</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border">
+            <div className="text-3xl mb-3">⛺</div>
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="font-bold text-gray-900 text-lg">단독 사이트</h3>
+              <span className="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-medium">{singleSites.length}개</span>
+            </div>
+            <p className="text-gray-500 text-sm mb-4">한 팀을 위한 프라이빗 사이트. 조용하고 아늑한 분위기를 즐기실 수 있습니다.</p>
+            <div className="flex items-center justify-between">
+              <span className="text-2xl font-bold text-green-700">60,000원</span>
+              <span className="text-gray-400 text-sm">1박 / 최대 4인</span>
+            </div>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border">
+            <div className="text-3xl mb-3">🏕️</div>
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="font-bold text-gray-900 text-lg">두가족 사이트</h3>
+              <span className="bg-amber-100 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">{familySites.length}개</span>
+            </div>
+            <p className="text-gray-500 text-sm mb-4">두 가족이 함께 사용하는 넓은 사이트. 바베큐와 함께 특별한 추억을 만드세요.</p>
+            <div className="flex items-center justify-between">
+              <span className="text-2xl font-bold text-amber-700">120,000원</span>
+              <span className="text-gray-400 text-sm">1박 / 최대 8-10인</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 이용 안내 */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border mb-8">
+          <h2 className="text-lg font-bold text-gray-900 mb-4">이용 안내</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div className="flex items-start gap-3">
+              <Clock size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-medium text-gray-800">체크인 / 체크아웃</div>
+                <div className="text-gray-500">체크인 14:00 / 체크아웃 11:00</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <MapPin size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-medium text-gray-800">주소</div>
+                <div className="text-gray-500">{CAMPING_INFO.address}</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <Phone size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-medium text-gray-800">문의</div>
+                <div className="text-gray-500">{CAMPING_INFO.phone}</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <Star size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-medium text-gray-800">현장 사이트 변경</div>
+                <div className="text-gray-500">당일 현장에서 변경 가능 (관리자 확인 후)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Link href="/reservation" className="inline-block bg-green-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-green-700 transition-colors shadow-md">
+            예약하러 가기
+          </Link>
+        </div>
+      </section>
+
+      <footer className="bg-gray-800 text-gray-400 py-8 px-4 text-center text-sm mt-8">
+        <p className="font-medium text-white mb-1">{CAMPING_INFO.name}</p>
+        <p>{CAMPING_INFO.address}</p>
+        <p className="mt-1">Tel: {CAMPING_INFO.phone}</p>
+      </footer>
     </div>
-  );
+  )
 }
